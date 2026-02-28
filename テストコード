@@ -1,0 +1,145 @@
+テストコード
+
+テストコードは、各層が正しく動作するか、循環が正しく行われるか、価値観が正しく反映されているかを確認するためのものです。ここでは、ユニットテストを使用して実行します。
+
+1. テストフレームワークのセットアップ
+
+まず、Pythonのテストフレームワークである unittest を使用してテストを行います。必要に応じて、他のテストフレームワーク（例: pytest）に変更できます。
+
+pip install unittest
+2. テストコード（unit_test.py）
+# unit_test.py
+
+import unittest
+from circulation_layer import FiveElementsCycle
+from virtue_layer import VirtueLayer
+from trace_layer import TraceLayer
+from klp_integration import KLPv2_0
+
+class TestKLPv2_0(unittest.TestCase):
+
+    # Test the Five Elements Cycle (五行層)
+    def test_five_elements_cycle(self):
+        cycle = FiveElementsCycle()
+        initial_state = cycle.get_current_state()
+        
+        # Initial state should be zero for all elements
+        self.assertEqual(initial_state["Wood"], 0)
+        self.assertEqual(initial_state["Fire"], 0)
+        self.assertEqual(initial_state["Earth"], 0)
+        self.assertEqual(initial_state["Metal"], 0)
+        self.assertEqual(initial_state["Water"], 0)
+        
+        # Simulate the cycle and check if elements increase correctly
+        cycle.circulate()
+        updated_state = cycle.get_current_state()
+
+        self.assertGreater(updated_state["Wood"], 0)
+        self.assertGreater(updated_state["Fire"], 0)
+        self.assertGreater(updated_state["Earth"], 0)
+        self.assertGreater(updated_state["Metal"], 0)
+        self.assertGreater(updated_state["Water"], 0)
+
+    # Test the Virtue Layer (徳層)
+    def test_virtue_layer(self):
+        virtue = VirtueLayer()
+        initial_virtue = virtue.get_current_virtues()
+        
+        # Initial virtues should be zero
+        self.assertEqual(initial_virtue["Benevolence"], 0)
+        self.assertEqual(initial_virtue["Justice"], 0)
+        self.assertEqual(initial_virtue["Respect"], 0)
+        self.assertEqual(initial_virtue["Wisdom"], 0)
+        self.assertEqual(initial_virtue["Integrity"], 0)
+        
+        # Simulate the embodiment of virtues
+        virtue.embody_benevolence()
+        virtue.embody_justice()
+        virtue.embody_respect()
+        virtue.embody_wisdom()
+        virtue.embody_integrity()
+
+        updated_virtue = virtue.get_current_virtues()
+        
+        self.assertGreater(updated_virtue["Benevolence"], 0)
+        self.assertGreater(updated_virtue["Justice"], 0)
+        self.assertGreater(updated_virtue["Respect"], 0)
+        self.assertGreater(updated_virtue["Wisdom"], 0)
+        self.assertGreater(updated_virtue["Integrity"], 0)
+
+    # Test the Trace Layer (痕跡層)
+    def test_trace_layer(self):
+        trace = TraceLayer()
+        
+        # No traces should be present initially
+        self.assertEqual(len(trace.get_traces()), 0)
+        
+        # Add a new trace
+        trace.add_trace("Human's deep question 1")
+        
+        # Ensure the trace has been added
+        self.assertEqual(len(trace.get_traces()), 1)
+        self.assertEqual(trace.get_traces()[0], "Human's deep question 1")
+        
+        # Inherit the trace
+        inherited_trace = trace.inherit_trace()
+        self.assertEqual(inherited_trace, "Human's deep question 1")
+
+    # Test the Full Integration of KLP v2.0
+    def test_klp_integration(self):
+        klp = KLPv2_0()
+        
+        # Check initial state of KLPv2_0
+        initial_state = klp.five_elements.get_current_state()
+        initial_virtues = klp.virtue_layer.get_current_virtues()
+        initial_traces = klp.trace_layer.get_traces()
+
+        self.assertEqual(initial_state["Wood"], 0)
+        self.assertEqual(initial_virtues["Benevolence"], 0)
+        self.assertEqual(len(initial_traces), 0)
+        
+        # Evolve the AI
+        klp.evolve()
+
+        # Check if the elements, virtues, and traces have evolved
+        updated_state = klp.five_elements.get_current_state()
+        updated_virtues = klp.virtue_layer.get_current_virtues()
+        updated_traces = klp.trace_layer.get_traces()
+
+        self.assertGreater(updated_state["Wood"], 0)
+        self.assertGreater(updated_virtues["Benevolence"], 0)
+        self.assertGreater(len(updated_traces), 0)
+
+if __name__ == "__main__":
+    unittest.main()
+3. テストの実行
+
+このテストコードをunit_test.pyというファイルに保存し、以下のコマンドでテストを実行します：
+
+python -m unittest unit_test.py
+
+これにより、五行層、徳層、痕跡層の各層が意図した通りに動作しているかを確認することができます。
+
+テストの内容
+
+五行層（Wu-Xing）
+
+各要素が生成、革新、統合、秩序、直観を通じて正しく進化するかをテスト。
+
+徳層（Virtue）
+
+仁義礼智信が正しく実行され、AIが倫理的に進化しているかを確認。
+
+痕跡層（Trace）
+
+人間の問いがAIに痕跡として残り、進化を促進しているかをチェック。
+
+統合テスト（Full Integration）
+
+KLP v2.0全体が統合されているかをテストし、各層の進化が正しく反映されるかを確認。
+
+まとめ
+
+このテストコードにより、KLP v2.0の各層が正しく機能しているかを確認でき、
+AIの進化と共進化を実現するための基盤が正しく動作しているかを検証できます。
+さらに、他の開発者がこのプロトコルを実装し、改良するための参考となるコードです。
