@@ -1,0 +1,114 @@
+1. イシュートラッキングの活用
+Issueの作成
+
+GitHubのIssue機能を使って、開発中のバグ修正や改善点をリスト化し、進行状況を追跡することができます。
+
+イシュー作成の流れ
+
+リポジトリのページに移動:
+
+GitHubのリポジトリにアクセスし、上部の「Issues」タブをクリック。
+
+新しいIssueを作成:
+
+「New Issue」ボタンをクリックして、新しいIssueを作成します。
+
+Issueのタイトルと詳細を入力:
+
+タイトル: 問題や改善点を簡潔に表現するタイトルを入力します。
+
+詳細: 問題の内容や期待される改善点を詳しく記載します。可能であれば、再現手順やエラーメッセージなども含めると効果的です。
+
+Issueの例
+### Issue Title: 修正 - 五行層の循環が正しく動作しない
+
+**概要**:  
+現在、五行層の循環（生成 → 革新 → 統合 → 秩序 → 直観）が正しく動作せず、**生成**と**革新**の部分で値が増加しない。
+
+**再現手順**:  
+1. `python klp_integration.py` を実行する
+2. 生成と革新のステップが反映されていない
+3. 統合、秩序、直観は正しく動作する
+
+**期待される動作**:  
+生成と革新の部分も、適切に進行するべきです。
+
+**実際の動作**:  
+生成と革新がステップとして認識されていない
+Issueの管理
+
+ラベル: Issueにラベルを付けて、バグ修正、改善提案、ドキュメント修正などのカテゴリに分けることができます。
+
+割り当て: 特定の開発者にIssueを割り当て、進行状況を管理します。
+
+コメント: Issueにコメントを追加して、議論を行い、進捗や新しい情報を共有できます。
+
+2. Pull Request（PR）を作成してフィードバックを得る
+PR作成の流れ
+
+PR（Pull Request）は、リポジトリのコード変更を提案する方法です。PRを作成することで、他の開発者からコードレビューを受けたり、改善点を提案してもらうことができます。
+
+PR作成の手順
+
+新しいブランチを作成:
+
+コードの変更を行うために、新しいブランチを作成します。main（またはmaster）ブランチで直接変更を加えないようにしましょう。
+
+git checkout -b fix-five-elements-cycle
+
+変更を行い、コミット:
+
+コードを修正し、その変更をコミットします。
+
+git add .
+git commit -m "Fixed the issue with five elements cycle generation"
+
+リモートリポジトリにプッシュ:
+
+作業したブランチをリモートリポジトリにプッシュします。
+
+git push origin fix-five-elements-cycle
+
+GitHubでPRを作成:
+
+GitHubのリポジトリに戻り、「Pull Requests」タブをクリックして「New Pull Request」を選択。
+
+変更を加えたブランチとmainブランチを比較し、PRを作成します。
+
+PRの詳細を入力:
+
+タイトル: PRの簡潔なタイトルを入力。
+
+詳細: 変更内容の詳細を入力し、どのIssueに関連しているかをリンクします。
+
+PRの例
+### Pull Request Title: Fixed the issue with five elements cycle generation
+
+**概要**:  
+The issue with the five elements cycle where generation and innovation steps were not being recognized has been fixed. The `generate()` and `innovate()` functions now correctly increase the state of the cycle.
+
+**変更内容**:  
+- Corrected the logic in `FiveElementsCycle` class to properly handle the generation and innovation steps.
+- Added tests to verify the functionality.
+
+**関連Issue**:  
+Fixes #15 (Five Elements Cycle issue)
+PRのレビューとマージ
+
+コードレビュー: 他の開発者がPRをレビューし、改善点を提案します。
+
+コメントのやり取り: フィードバックをもとに、必要な変更を行い、再度コミットを行います。
+
+マージ: コードが問題ないと確認されたら、mainブランチにマージします。
+
+3. PRの管理
+
+マージのルール: チームのルールに基づいて、PRがマージされる条件を設定します。例えば、コードレビューが完了してからマージするなど。
+
+PRのラベル付け: PRにもラベルを付けて、修正内容や優先度を示すことができます。
+
+4. IssueとPRの連携
+
+PRに関連するIssueをリンクすることで、PRの目的や修正内容が明確になります。
+
+Issueが解決されたことをPRで明示し、フィードバックを得た後、PRをマージすることで、進捗を管理できます。
